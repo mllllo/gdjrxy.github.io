@@ -13,7 +13,7 @@
 
 <body onload="initialize()">
     <div align="center">
-        <img id="end" width=100% src="" />
+        <img id="end" width="" height="" src="" />
     </div>
 </body>
 
@@ -23,13 +23,18 @@
     function initialize() {
         var getUrl = new XMLHttpRequest();
         getUrl.open('get', 'https://youthstudy.12355.net/saomah5/api/young/chapter/new');
+        getUrl.setRequestHeader("X-Litemall-IdentiFication", "young");
         getUrl.send();
         getUrl.onreadystatechange = function () {
             if (getUrl.readyState == 4 && getUrl.status == 200) {
                 var response = JSON.parse(getUrl.responseText)
                 document.querySelector('title').innerHTML = response.data.entity.name;
                 var image_url = response.data.entity.url.replace("index.html", "images/end.jpg");
+                var clientWidth = document.documentElement.scrollWidth
+                var clientHeight = document.documentElement.scrollHeight
                 $("#end").attr('src', image_url);
+                $("#end").attr('width', clientWidth);
+                $("#end").attr('height', clientHeight);
             }
         }
     }
